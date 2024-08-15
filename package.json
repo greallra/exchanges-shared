@@ -1,0 +1,19 @@
+{
+  "name": "exchanges-shared",
+  "version": "1.0.0",
+  "description": "shared stuff for React Native and React Web apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greallra/exchanges-shared.git"
+  },
+  "author": "Ronan Greally",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/greallra/exchanges-shared/issues"
+  },
+  "homepage": "https://github.com/greallra/exchanges-shared#readme"
+}
