@@ -1,7 +1,7 @@
-// import { Exchange, User, ParticipantsTeachingLanguage, ParticipantsLearningLanguage } from './types'
+import { Exchange, User, ParticipantsTeachingLanguage, ParticipantsLearningLanguage } from '../types'
 
 export function checkUserIsValidToJoin(
-    exchange,
+    exchange: Exchange,
     participantsTeachingLanguage,
     participantsLearningLanguage,
     userPerforming, 
