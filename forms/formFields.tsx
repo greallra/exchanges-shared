@@ -84,6 +84,84 @@ export const exchangeFormFields = [
     },     
 ];
 
+export const userFormFieldsRN = [
+    { 
+        type: "text",
+        name: "firstname",
+        label: "First Name",
+        placeholder: "Enter your firstname",
+        property: "firstname",
+        value: ""
+    },
+    { 
+        type: "text",
+        name: "lastname",
+        label: "Last Name",
+        placeholder: "Enter your lastname",
+        property: "lastname",
+        value: ""
+    },
+    { 
+        type: "text",
+        name: "username",
+        label: "Username",
+        placeholder: "Enter a username",
+        property: "username",
+        value: ""
+    },
+    { 
+     type: "email",
+     name: "email",
+     label: "Email",
+     placeholder: "example@gmail.com",
+     property: "email",
+     value: ""
+    },
+    { 
+     type: "password",
+     name: "password",
+     label: "Password",
+     placeholder: "Enter a password",
+     property: "password",
+     value: ""
+    },
+    { 
+     type: "date",
+     name: "dob",
+     label: "Date of birth",
+     placeholder: "Enter your date of birth",
+     property: "dob",
+     value: null
+    },
+    { 
+     type: "radio",
+     name: "gender",
+     label: "Gender",
+     placeholder: "Enter your Gender",
+     property: "gender",
+     options: ['male', 'female'],
+     value: 0
+    },
+    { 
+     type: "radio2",
+     name: "teachingLanguage",
+     label: "Enter your native language",
+    //  placeholder: "Enter your teachingLanguage",
+     property: "teachingLanguage",
+     value: null,
+     options: [],
+    },
+    { 
+     type: "radio2",
+     name: "learningLanguage",
+     label: "What language are you learning?",
+    //  placeholder: "Enter your learningLanguage",
+     property: "learningLanguage",
+     value: null,
+     options: [],
+    },
+ ];
+
 export const exchangeFormFieldsRN = [
     { 
      type: "text",
