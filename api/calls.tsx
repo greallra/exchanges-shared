@@ -30,11 +30,28 @@ export async function esUpdateDoc (FIREBASE_DB, collectionName: string, docId: s
     })
 }
 
-export async function esPostDoc (FIREBASE_DB, collectionName: string, data){
+export async function esAddDoc (FIREBASE_DB, collectionName: string, data){
     return new Promise(async (resolve, reject) => {
         try {
             const colRef = collection(FIREBASE_DB, collectionName)
             const docRef = await addDoc(colRef, data)
+            resolve({
+                error: false,
+                docRef
+            });
+      
+          } catch (error) {
+            reject({
+                error: true,
+                message: error.message
+            })
+          }
+    })
+}
+export async function esAddUser (FIREBASE_DB, userCredential, collectionName: string, data){
+    return new Promise(async (resolve, reject) => {
+        try {
+          const docRef = await setDoc(doc(FIREBASE_DB, collectionName, userCredential.user.uid), { id: userCredential.user.uid, uid: userCredential.user.uid, ...data });
             resolve({
                 error: false,
                 docRef

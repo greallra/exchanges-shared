@@ -1,3 +1,80 @@
+export const userFormFields = [
+    { 
+        type: "text",
+        name: "firstname",
+        label: "First Name",
+        placeholder: "Enter your firstname",
+        property: "firstname",
+        value: ""
+    },
+    { 
+        type: "text",
+        name: "lastname",
+        label: "Last Name",
+        placeholder: "Enter your lastname",
+        property: "lastname",
+        value: ""
+    },
+    { 
+        type: "text",
+        name: "username",
+        label: "Username",
+        placeholder: "Enter a username",
+        property: "username",
+        value: ""
+    },
+    { 
+     type: "email",
+     name: "email",
+     label: "Email",
+     placeholder: "example@gmail.com",
+     property: "email",
+     value: ""
+    },
+    { 
+     type: "password",
+     name: "password",
+     label: "Password",
+     placeholder: "Enter a password",
+     property: "password",
+     value: ""
+    },
+    { 
+     type: "date",
+     name: "dob",
+     label: "Date of birth",
+     placeholder: "Enter your date of birth",
+     maxDate: new Date('01-01-2004'),
+     property: "dob",
+     value: import.meta.env.MODE === 'development' ? new Date('01-01-1994') : null
+    },
+    { 
+     type: "radio",
+     name: "gender",
+     label: "Gender",
+     placeholder: "Enter your Gender",
+     property: "gender",
+     value: 1,
+     options: [{ value: 0, index: 0, matineValue: 'male', label: 'Male' }, { value: 1, index: 1, matineValue: 'female', label: 'Female'  }],
+    },
+    { 
+     type: "language_picker",
+     name: "teachingLanguage",
+     label: "Enter your native language",
+    //  placeholder: "Enter your teachingLanguage",
+     property: "teachingLanguage",
+     value: null
+    },
+    { 
+     type: "language_picker",
+     name: "learningLanguage",
+     label: "Enter your learning language",
+    //  placeholder: "Enter your learningLanguage",
+     property: "learningLanguage",
+     value: null
+    },
+ ];
+
 export const exchangeFormFields = [
     { 
      type: "text",

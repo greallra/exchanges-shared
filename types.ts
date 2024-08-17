@@ -37,6 +37,18 @@ interface TeachingLanguage {
 export interface User {
     username: string
 }
+export interface UserForm {
+    username: string,
+    firstname: string,
+    lastname: string,
+    email: string,
+    password: string,
+    dob: Date,
+    gender: number,
+    teachingLanguage: TeachingLanguage,
+    learningLanguage: TeachingLanguage
+}
+
 export interface ParticipantsTeachingLanguage {
     // username: string
 }

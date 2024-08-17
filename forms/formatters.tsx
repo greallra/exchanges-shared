@@ -1,8 +1,6 @@
-import { ExchangeForm, FormFields } from '../types'
+import { ExchangeForm, FormFields, UserForm } from '../types'
 
 function extractDeepValueIfNecessary(value: any, objectPropertyToDig: string, shouldBeType: string) {
-    console.log('zz', value, objectPropertyToDig, shouldBeType);
-    
     if (typeof value === shouldBeType) {
         return value
     }
@@ -17,6 +15,17 @@ export function formatPostDataExchange (data: ExchangeForm) {
         teachingLanguageId: extractDeepValueIfNecessary(data.teachingLanguage, 'id' , 'string'),
         duration: extractDeepValueIfNecessary(data.duration, 'value' , 'string'),
         capacity: extractDeepValueIfNecessary(data.duration, 'value' , 'string'),
+    }
+    delete formattedData.learningLanguage;
+    delete formattedData.teachingLanguage;
+    return formattedData;
+}
+
+export function formatPostDataUser (data: UserForm) {
+    let formattedData = {
+        ...data,
+        learningLanguageId:  extractDeepValueIfNecessary(data.learningLanguage, 'id' , 'string'),
+        teachingLanguageId: extractDeepValueIfNecessary(data.teachingLanguage, 'id' , 'string'),
     }
     delete formattedData.learningLanguage;
     delete formattedData.teachingLanguage;

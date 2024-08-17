@@ -2,6 +2,8 @@ import { object, string, email, number, date, InferType, array } from 'yup';
 import _ from 'lodash';
 
 const newUserSchema = object({
+    // id provided by FB
+    // id: string().required().min(3),
     firstname: string().required().min(3),
     lastname: string().required().min(3),
     username: string().required().min(3).matches(/^\S*$/, "No whitespace"),
@@ -9,9 +11,9 @@ const newUserSchema = object({
     password: string().required().min(6),
     // name: string().required(),
     dob: date().required(),
-    gender: string().required(),
-    teachingLanguage: string().required(),
-    learningLanguage: object().required(),
+    gender: number().required(),
+    teachingLanguageId: string().required(),
+    learningLanguageId: string().required(),
   });
   
 
@@ -54,7 +56,7 @@ export async function validateForm(formType: string, formData: object){
             // parse and assert validity
             const user = await newUserSchema.validate(formData)
             // custom validation
-            if (_.isEqual(user.teachingLanguage, user.learningLanguage)) {
+            if (user.teachingLanguageId === user.learningLanguageId) {
               return 'Teaching Language and Learning Language cannot be the same';
             }
             return user
