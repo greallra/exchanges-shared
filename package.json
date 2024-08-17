@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/greallra/exchanges-shared/issues"
   },
-  "homepage": "https://github.com/greallra/exchanges-shared#readme"
+  "homepage": "https://github.com/greallra/exchanges-shared#readme",
+  "dependencies": {
+    "yup": "^1.4.0"
+  }
 }

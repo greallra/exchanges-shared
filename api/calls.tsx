@@ -11,7 +11,6 @@ import {
 
 
 export async function esUpdateDoc (FIREBASE_DB, collectionName: string, docId: string, data: object){
-    console.log('esUpdateDoc');
     return new Promise(async (resolve, reject) => {
         try {
           const ref = doc(FIREBASE_DB, collectionName, docId);
@@ -31,24 +30,24 @@ export async function esUpdateDoc (FIREBASE_DB, collectionName: string, docId: s
     })
 }
 
-// export async function postDoc (collectionName: string, data){
-//     return new Promise(async (resolve, reject) => {
-//         try {
-//             const colRef = collection(FIREBASE_DB, collectionName)
-//             const docRef = await addDoc(colRef, data)
-//             resolve({
-//                 error: false,
-//                 docRef
-//             });
+export async function esPostDoc (FIREBASE_DB, collectionName: string, data){
+    return new Promise(async (resolve, reject) => {
+        try {
+            const colRef = collection(FIREBASE_DB, collectionName)
+            const docRef = await addDoc(colRef, data)
+            resolve({
+                error: false,
+                docRef
+            });
       
-//           } catch (error) {
-//             reject({
-//                 error: true,
-//                 message: error.message
-//             })
-//           }
-//     })
-// }
+          } catch (error) {
+            reject({
+                error: true,
+                message: error.message
+            })
+          }
+    })
+}
 
 // export async function getOneDoc (collectionName: string, docId: string){
 //     return new Promise(async (resolve, reject) => {
