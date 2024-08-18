@@ -1,3 +1,11 @@
+export interface Language {
+    id: string,
+    iso_alpha2: string,
+    smallFlag: string,
+    label: string,
+    name: string,
+}
+
 export interface ExchangeServer {
     name: string,
     location: Object,
@@ -22,17 +30,10 @@ export interface ExchangeForm {
     age_range: Array<Number>,
     organizerId: string,
     participantIds: Array<String>,
-    teachingLanguage: TeachingLanguage,
-    learningLanguage: TeachingLanguage
+    teachingLanguage: Language,
+    learningLanguage: Language
 }
 
-interface TeachingLanguage {
-    id: string,
-    iso_alpha2: string,
-    smallFlag: string,
-    label: string,
-    name: string,
-}
 
 export interface User {
     username: string
@@ -45,16 +46,11 @@ export interface UserForm {
     password: string,
     dob: Date,
     gender: number,
-    teachingLanguage: TeachingLanguage,
-    learningLanguage: TeachingLanguage
+    teachingLanguage: Language,
+    learningLanguage: Language
 }
 
-export interface ParticipantsTeachingLanguage {
-    // username: string
-}
-export interface ParticipantsLearningLanguage {
-    // username: string
-}
+export interface Participants extends Array<User>{}
 
 export interface FormFields {
     type: string,
@@ -62,4 +58,3 @@ export interface FormFields {
     label: string,
     property: string,
 }
-

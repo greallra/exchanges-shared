@@ -46,7 +46,7 @@ export const userFormFields = [
      placeholder: "Enter your date of birth",
      maxDate: new Date('01-01-2004'),
      property: "dob",
-     value: import.meta.env.MODE === 'development' ? new Date('01-01-1994') : null
+     value: new Date('01-01-1994')
     },
     { 
      type: "radio",

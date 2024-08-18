@@ -66,24 +66,24 @@ export async function esAddUser (FIREBASE_DB, userCredential, collectionName: st
     })
 }
 
-// export async function getOneDoc (collectionName: string, docId: string){
-//     return new Promise(async (resolve, reject) => {
-//         try {
-//             const docRef = doc(FIREBASE_DB, collectionName, docId);
-//             const docSnap = await getDoc(docRef);
-//             resolve({
-//               error: false,
-//               docSnap
-//           });
+export async function esGetOneDoc (FIREBASE_DB, collectionName: string, docId: string){
+    return new Promise(async (resolve, reject) => {
+        try {
+            const docRef = doc(FIREBASE_DB, collectionName, docId);
+            const docSnap = await getDoc(docRef);
+            resolve({
+              error: false,
+              docSnap
+          });
           
-//           } catch (error) {
-//             reject({
-//                 error: true,
-//                 message: error.message
-//             })
-//           }
-//     })
-// }
+          } catch (error) {
+            reject({
+                error: true,
+                message: error.message
+            })
+          }
+    })
+}
 
 // export async function setOneDoc (collectionName: string, docId: string, data: object){
 //     return new Promise(async (resolve, reject) => {
