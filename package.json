@@ -1,6 +1,6 @@
 {
   "name": "exchanges-shared",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "shared stuff for React Native and React Web apps",
   "main": "index.ts",
   "scripts": {
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/greallra/exchanges-shared#readme",
   "dependencies": {
+    "date-fns": "^3.6.0",
     "yup": "^1.4.0"
   }
 }
