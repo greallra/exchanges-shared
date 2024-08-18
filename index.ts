@@ -1,11 +1,12 @@
-import { esUpdateDoc, esAddDoc, esAddUser, esGetOneDoc } from './api/calls'
+import { esUpdateDoc, esAddDoc, esAddUser, esGetDoc, esDeleteDoc, esDeleteDocs, esSetDoc } from './api/calls'
 import { checkUserIsValidToJoin } from './business'
 import { validateForm } from './forms/validation'
-import { formatPostDataExchange, updateFormFieldsWithDefaultData, formatPostDataUser, formatLanguages, appendAuthDataToUser,
-    formatUserData
+import { formatPostDataExchange, updateFormFieldsWithDefaultData, updateFormFieldsWithSavedData, formatPostDataUser, formatLanguages, appendAuthDataToUser,
+    formatUserData, formatExchange, formatUsersData
  } from './forms/formatters'
 import { exchangeFormFields, exchangeFormFieldsRN, userFormFields, userFormFieldsRN } from './forms/formFields'
-import { isFirebaseId } from './utils'
+import { isFirebaseId, checkForLanguageChange } from './utils'
+import { timeFilterExchanges, nextTenDays } from './utils/timeHelpers'
 
 import {
     Language,
@@ -22,22 +23,29 @@ export {
     esAddDoc,
     esAddUser,
     esUpdateDoc,
-    esGetOneDoc,
+    esDeleteDocs, 
+    esSetDoc,
+    esGetDoc,
+    esDeleteDoc,
     checkUserIsValidToJoin, 
     validateForm,
     formatPostDataExchange,
+    formatUsersData,
     formatPostDataUser,
     formatLanguages,
+    formatExchange,
     formatUserData,
     appendAuthDataToUser,
-    // updateFormFieldsWithSavedData,
+    updateFormFieldsWithSavedData,
     updateFormFieldsWithDefaultData,
     exchangeFormFields,
     exchangeFormFieldsRN,
     userFormFields,
     userFormFieldsRN,
-    isFirebaseId
- 
+    isFirebaseId,
+    checkForLanguageChange,
+    timeFilterExchanges, 
+    nextTenDays,
 };
 
 export type {

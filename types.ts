@@ -36,7 +36,14 @@ export interface ExchangeForm {
 
 
 export interface User {
-    username: string
+    username: string,
+    firstname: string,
+    lastname: string,
+    email: string,
+    dob: Date,
+    gender: number,
+    teachingLanguageId: Language,
+    learningLanguageId: Language
 }
 export interface UserForm {
     username: string,
