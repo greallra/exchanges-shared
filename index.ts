@@ -6,7 +6,7 @@ import { formatPostDataExchange, updateFormFieldsWithDefaultData, updateFormFiel
  } from './forms/formatters'
 import { exchangeFormFields, exchangeFormFieldsRN } from './forms/formFields'
 import {  getFormFields } from './forms/utils'
-import { isFirebaseId, checkForLanguageChange } from './utils'
+import { isFirebaseId, checkForLanguageChange, getUserInitials, parseLocation, safeParse } from './utils'
 import { timeFilterExchanges, nextTenDays } from './utils/timeHelpers'
 
 import {
@@ -45,6 +45,9 @@ export {
     getFormFields,
     isFirebaseId,
     checkForLanguageChange,
+    getUserInitials, 
+    parseLocation, 
+    safeParse,
     timeFilterExchanges, 
     nextTenDays,
 };
