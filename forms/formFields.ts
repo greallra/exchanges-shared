@@ -1,79 +1,111 @@
-export const userFormFields = [
-    { 
-        type: "text",
-        name: "firstname",
-        label: "First Name",
-        placeholder: "Enter your firstname",
-        property: "firstname",
-        value: ""
-    },
-    { 
-        type: "text",
-        name: "lastname",
-        label: "Last Name",
-        placeholder: "Enter your lastname",
-        property: "lastname",
-        value: ""
-    },
-    { 
-        type: "text",
-        name: "username",
-        label: "Username",
-        placeholder: "Enter a username",
-        property: "username",
-        value: ""
-    },
-    { 
-     type: "email",
-     name: "email",
-     label: "Email",
-     placeholder: "example@gmail.com",
-     property: "email",
-     value: ""
-    },
-    { 
-     type: "password",
-     name: "password",
-     label: "Password",
-     placeholder: "Enter a password",
-     property: "password",
-     value: ""
-    },
-    { 
-     type: "date",
-     name: "dob",
-     label: "Date of birth",
-     placeholder: "Enter your date of birth",
-     maxDate: new Date('01-01-2004'),
-     property: "dob",
-     value: new Date('01-01-1994')
-    },
-    { 
-     type: "radio",
-     name: "gender",
-     label: "Gender",
-     placeholder: "Enter your Gender",
-     property: "gender",
-     value: 1,
-     options: [{ value: 0, index: 0, matineValue: 'male', label: 'Male' }, { value: 1, index: 1, matineValue: 'female', label: 'Female'  }],
-    },
-    { 
-     type: "language_picker",
-     name: "teachingLanguage",
-     label: "Enter your native language",
-    //  placeholder: "Enter your teachingLanguage",
-     property: "teachingLanguage",
-     value: null
-    },
-    { 
-     type: "language_picker",
-     name: "learningLanguage",
-     label: "Enter your learning language",
-    //  placeholder: "Enter your learningLanguage",
-     property: "learningLanguage",
-     value: null
-    },
- ];
+
+export const forms = {
+    user: [
+        { 
+            type: "text",
+            name: "firstname",
+            label: "First Name",
+            placeholder: "Enter your firstname",
+            property: "firstname",
+            value: ""
+        },
+        { 
+            type: "text",
+            name: "lastname",
+            label: "Last Name",
+            placeholder: "Enter your lastname",
+            property: "lastname",
+            value: ""
+        },
+        { 
+            type: "text",
+            name: "username",
+            label: "Username",
+            placeholder: "Enter a username",
+            property: "username",
+            value: ""
+        },
+        { 
+         type: "email",
+         name: "email",
+         label: "Email",
+         placeholder: "example@gmail.com",
+         property: "email",
+         value: ""
+        },
+        { 
+         type: "password",
+         name: "password",
+         label: "Password",
+         placeholder: "Enter a password",
+         property: "password",
+         value: ""
+        },
+        { 
+         type: "date",
+         name: "dob",
+         label: "Date of birth",
+         placeholder: "Enter your date of birth",
+        //  maxDate: new Date('01-01-2004'), append in getUserFormFields - WEB
+         // maxDate: new Date('01-01-2004'),
+         property: "dob",
+        //  value: new Date('01-01-1994')
+        //  value: new Date('01-01-1994') append in getUserFormFields  - WEB
+        },
+        // { 
+        //  type: "radio",
+        //  name: "gender",
+        //  label: "Gender",
+        //  placeholder: "Enter your Gender",
+        //  property: "gender",
+        //  value: 1,
+        //  options: [{ value: 0, index: 0, matineValue: 'male', label: 'Male' }, { value: 1, index: 1, matineValue: 'female', label: 'Female'  }],
+        // },
+        // { 
+        //  type: "language_picker",
+        //  name: "teachingLanguage",
+        //  label: "Enter your native language",
+        // //  placeholder: "Enter your teachingLanguage",
+        //  property: "teachingLanguage",
+        //  value: null
+        // },
+        // { 
+        //  type: "language_picker",
+        //  name: "learningLanguage",
+        //  label: "Enter your learning language",
+        // //  placeholder: "Enter your learningLanguage",
+        //  property: "learningLanguage",
+        //  value: null
+        // },
+     ]
+}
+// let userFormFields = 
+
+const envs = ['RN', 'WEB']
+export const getUserFormFields = (form, env) => {
+    // if (!form || !env || typeof env !== 'string') {
+    //     throw new Error("the required params are incorrect");
+    // }
+    if (!forms[form]) {
+        throw new Error("Not a valid form name");
+    }
+    if (!envs.includes(env)) {
+        throw new Error("Not a valid env");
+    }
+    // const differingFields = ['dob', 'gender']
+    // if (form == 'user') {
+        
+    // }
+    return forms[form].map((field) => {
+        if (field.name === 'dob' && env === envs[1]) {
+            field.maxDate = new Date('01-01-2004')
+            field.value = new Date('01-01-1994')
+        }
+        console.log(field);
+        
+        return field
+    })
+}
 
 export const exchangeFormFields = [
     { 

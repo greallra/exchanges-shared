@@ -156,3 +156,27 @@ export async function esDeleteDocs (FIREBASE_DB, collectionName: string, collect
           }
     })
 }
+
+  export async function esGetCollection (FIREBASE_DB, collectionName: string) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const colRef = collection(FIREBASE_DB, collectionName)
+            const snapshots = await getDocs(colRef)
+            let data: Array<object> = []
+            snapshots.docs.forEach((doc) => {
+                data.push({...doc.data(), id: doc.id })
+            })
+            resolve({
+                error: false,
+                data
+            });
+      
+          } catch (error) {
+            reject({
+                error: true,
+                message: error.message
+            })
+          }
+    })
+ 
+}

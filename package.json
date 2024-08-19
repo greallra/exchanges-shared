@@ -1,10 +1,10 @@
 {
   "name": "exchanges-shared",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "shared stuff for React Native and React Web apps",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,11 @@
   "dependencies": {
     "date-fns": "^3.6.0",
     "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.4",
+    "typescript": "^5.5.4"
   }
 }

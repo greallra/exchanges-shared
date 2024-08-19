@@ -1,10 +1,10 @@
-import { esUpdateDoc, esAddDoc, esAddUser, esGetDoc, esDeleteDoc, esDeleteDocs, esSetDoc } from './api/calls'
+import { esUpdateDoc, esAddDoc, esAddUser, esGetDoc, esDeleteDoc, esDeleteDocs, esSetDoc, esGetCollection } from './api/calls'
 import { checkUserIsValidToJoin } from './business'
 import { validateForm } from './forms/validation'
 import { formatPostDataExchange, updateFormFieldsWithDefaultData, updateFormFieldsWithSavedData, formatPostDataUser, formatLanguages, appendAuthDataToUser,
     formatUserData, formatExchange, formatUsersData
  } from './forms/formatters'
-import { exchangeFormFields, exchangeFormFieldsRN, userFormFields, userFormFieldsRN } from './forms/formFields'
+import { exchangeFormFields, exchangeFormFieldsRN, userFormFieldsRN, getUserFormFields } from './forms/formFields'
 import { isFirebaseId, checkForLanguageChange } from './utils'
 import { timeFilterExchanges, nextTenDays } from './utils/timeHelpers'
 
@@ -27,6 +27,7 @@ export {
     esSetDoc,
     esGetDoc,
     esDeleteDoc,
+    esGetCollection,
     checkUserIsValidToJoin, 
     validateForm,
     formatPostDataExchange,
@@ -40,7 +41,8 @@ export {
     updateFormFieldsWithDefaultData,
     exchangeFormFields,
     exchangeFormFieldsRN,
-    userFormFields,
+    // userFormFields,
+    getUserFormFields,
     userFormFieldsRN,
     isFirebaseId,
     checkForLanguageChange,
