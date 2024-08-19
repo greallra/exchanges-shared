@@ -49,3 +49,8 @@ export function safeParse (property: string, value: object) {
   }
   return 'Parse Fail'
 }
+
+export function getIndexOfAvailableValues(formFields: Array, property: string, value: any) {
+  const field = formFields.find( field => field.property === property)
+  return field.availableValues.indexOf(value)
+}
