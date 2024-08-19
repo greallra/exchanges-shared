@@ -4,7 +4,6 @@ import { validateForm } from './forms/validation'
 import { formatPostDataExchange, updateFormFieldsWithDefaultData, updateFormFieldsWithSavedData, formatPostDataUser, formatLanguages, appendAuthDataToUser,
     formatUserData, formatExchange, formatUsersData
  } from './forms/formatters'
-import { exchangeFormFields, exchangeFormFieldsRN } from './forms/formFields'
 import {  getFormFields } from './forms/utils'
 import { isFirebaseId, checkForLanguageChange, getUserInitials, parseLocation, safeParse, getIndexOfAvailableValues } from './utils'
 import { timeFilterExchanges, nextTenDays } from './utils/timeHelpers'
@@ -40,8 +39,6 @@ export {
     appendAuthDataToUser,
     updateFormFieldsWithSavedData,
     updateFormFieldsWithDefaultData,
-    exchangeFormFields,
-    exchangeFormFieldsRN,
     getFormFields,
     isFirebaseId,
     checkForLanguageChange,

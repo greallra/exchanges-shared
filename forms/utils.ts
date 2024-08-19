@@ -34,6 +34,34 @@ export const getFormFields = (form: string, env: string) => {
             fieldNew.type = "radio2"
             fieldNew.options =  []
         }
+           
+        if (fieldNew.name === 'capacity' && env === envWeb) {
+            fieldNew.availableValues = ['2', '4', '6', '8', '10', '12']
+            fieldNew.value = ""
+        }
+        if (fieldNew.name === 'capacity' && env === envRN) {
+            fieldNew.value = { value: null, selectedValue: null }
+        }
+        if (fieldNew.type === 'datetime' && env === envWeb) {
+            fieldNew.value = new Date()
+            fieldNew.mode = 'datetime'
+            fieldNew.is24Hour = true
+        }
+        if (fieldNew.type === 'datetime' && env === envRN) {
+            fieldNew.value = { value: null, selectedValue: null }
+        }
+        if (fieldNew.name === 'duration' && env === envRN) {
+            fieldNew.value = { value: null, selectedValue: null }
+        }
+        if (fieldNew.type === 'gender' && env === envRN) {
+            fieldNew.options = [
+            { value: 0, index: 0, matineValue: 'male', label: 'Male' }, 
+            { value: 1, index: 1, matineValue: 'female', label: 'Female'  },
+            { value: 2, index: 2, matineValue: 'any', label: 'Any Gender'  }]
+        }
+        if (fieldNew.name === 'gender' && env === envRN) {
+             fieldNew.options = ['male', 'female', 'Any gender']
+        }
         return fieldNew
     })
 }
