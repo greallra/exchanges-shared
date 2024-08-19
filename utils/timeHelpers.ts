@@ -14,12 +14,16 @@ function addDaysCustom(days){
     if(x === 0){
       item.name = 'Today'
       item.date = format(today, 'MM/dd/yyyy')
+      item.hideDate = true
+      item.date = addDaysCustom(x)
+      item.datePretty = format(today, 'MM/dd/yyyy')
     } else if(x === 1) {
       item.name = 'Tomorrow'
       item.date = format(addDaysCustom(x), 'MM/dd/yyyy')
     } else {
       item.name = `In ${formatDistance(today, addDaysCustom(x))}`
       item.date = format(addDaysCustom(x), 'MM/dd/yyyy')
+      item.datePretty = format(addDaysCustom(x), 'MM/dd/yyyy')
     }
   nextTenDays.push(item)
 }
