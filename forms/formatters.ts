@@ -85,8 +85,8 @@ export function formatUserData(user: User, languages: Array<Language>) {
     }
     return {
         ...result,
-        teachingLanguageUnfoled: getObjectById(user.teachingLanguageId, languages),
-        learningLanguageUnfoled: getObjectById(user.learningLanguageId, languages),
+        teachingLanguageUnfolded: getObjectById(user.teachingLanguageId, languages),
+        learningLanguageUnfolded: getObjectById(user.learningLanguageId, languages),
 
     }
 }
