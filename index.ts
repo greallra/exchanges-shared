@@ -1,5 +1,5 @@
 import { esUpdateDoc, esAddDoc, esAddUser, esGetDoc, esDeleteDoc, esDeleteDocs, esSetDoc, esGetCollection } from './api/calls'
-import { checkUserIsValidToJoin } from './business'
+import { checkUserIsValidToJoin, removeMyselfFromExchange, checkUserHasJoined, getPartipantsOfLanguages, addParticipantToExchange } from './business'
 import { validateForm } from './forms/validation'
 import { formatPostDataExchange, updateFormFieldsWithDefaultData, updateFormFieldsWithSavedData, formatPostDataUser, formatLanguages, appendAuthDataToUser,
     formatUserData, formatExchange, formatUsersData
@@ -28,7 +28,11 @@ export {
     esGetDoc,
     esDeleteDoc,
     esGetCollection,
-    checkUserIsValidToJoin, 
+    checkUserIsValidToJoin,
+    checkUserHasJoined,
+    addParticipantToExchange,
+    removeMyselfFromExchange,
+    getPartipantsOfLanguages,
     validateForm,
     formatPostDataExchange,
     formatUsersData,

@@ -107,14 +107,16 @@ export function formatExchange (exchange: ExchangeServer, languages: Array<Langu
     exchange.teachingLanguageUnfolded = getObjectById(exchange.teachingLanguageId, languages)
     exchange.learningLanguageUnfolded = getObjectById(exchange.learningLanguageId, languages)
     exchange.organizerUnfolded = getObjectById(exchange.organizerId, users)
+    
     return {
         ...exchange
     }
 }
 
 export function getObjectById(id: string, items: Array){
-    if (!id || !isFirebaseId(id) || !items || items.length === 0) {
+    if (!id|| !items || items.length === 0) {
         return ''
     }
+    
     return items.find( item => item.id === id) || '';
 }

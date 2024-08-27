@@ -112,6 +112,7 @@ export const forms = {
             placeholder: "How many people in this exchange",
             property: "capacity",
             value: "",
+            required: true,
             availableValues: ['2', '4', '6', '8', '10', '12']
            },
         { 
@@ -121,6 +122,7 @@ export const forms = {
             placeholder: "Pick a time and date",
             property: "time",
             value: "",
+            required: true,
             format: "DD MMM YYYY hh:mm A"
         },
         { 
@@ -130,12 +132,13 @@ export const forms = {
             placeholder: "How long will the exchange be (minutes)",
             property: "duration",
             value: "",
+            required: true,
             availableValues: ['30', '45', '60', '120', '180']
         },
         { 
             type: "radio",
             name: "gender",
-            label: "Gender",
+            label: "Do you want to have a gender specific exchange?",
             placeholder: "Enter your Gender",
             property: "gender",
             value: 2,

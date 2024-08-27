@@ -12,6 +12,8 @@ export const getFormFields = (form: string, env: string) => {
     }
     return forms[form].map((field) => {
         let fieldNew = {...field}
+        // common in all forms
+
         // user 
         if (form === 'user') {
             if (fieldNew.name === 'dob' && env === envWeb) {
@@ -56,7 +58,7 @@ export const getFormFields = (form: string, env: string) => {
             if (fieldNew.name === 'duration' && env === envRN) {
                 fieldNew.value = { value: null, selectedValue: null }
             }
-            if (fieldNew.type === 'gender' && env === envWeb) {
+            if (fieldNew.name === 'gender' && env === envWeb) {
                 fieldNew.options = [
                 { value: 0, index: 0, matineValue: 'male', label: 'Male' }, 
                 { value: 1, index: 1, matineValue: 'female', label: 'Female'  },
@@ -66,7 +68,7 @@ export const getFormFields = (form: string, env: string) => {
                  fieldNew.options = ['male', 'female', 'Any gender']
             }
         } 
-        // common in all forms
+        
         return fieldNew
     })
 }

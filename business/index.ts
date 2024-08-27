@@ -1,5 +1,19 @@
 import { Exchange, User, ParticipantsTeachingLanguage, ParticipantsLearningLanguage } from '../types'
+import { esUpdateDoc } from '../api/calls';
 
+export function checkUserHasJoined(user: User, exchange: Exchange){
+    if (!user || !exchange) {
+        throw "checkUserHasJoined invalid args"
+    }
+    
+    let hasJoined = false
+    if (exchange && exchange.participantIds) {
+        hasJoined = exchange.participantIds.includes(user.id);
+    }
+    return hasJoined;
+}
+
+ 
 export function checkUserIsValidToJoin(
         exchange: Exchange,
         participantsTeachingLanguage,
@@ -11,6 +25,7 @@ export function checkUserIsValidToJoin(
     let message = '';
     let joiningUser;
     let joiningUserIsMe = false;
+
 
     if (!exchange || !userPerforming) {
         message = 'exchange and user Performing are required'
@@ -26,9 +41,18 @@ export function checkUserIsValidToJoin(
     } else {
         joiningUser = userAdded 
     }
-
+    const learningLanguageValues = Object.values(exchange.learningLanguageUnfolded);
+    const teachingLanguageValues = Object.values(exchange.teachingLanguageUnfolded);
+    const combinedValues = [...learningLanguageValues, ...teachingLanguageValues];
+    combinedValues.includes(joiningUser.learningLanguageId);
+    combinedValues.includes(joiningUser.teachingLanguageId);
+    
+    // Not the right target languages
+    if (!combinedValues.includes(joiningUser.learningLanguageId) || !combinedValues.includes(joiningUser.teachingLanguageId)) {
+        message = 'Incorrect target languages';
+    }
     // Already Joined
-    if (exchange.participantIds.includes(joiningUser.id) || exchange.participantIds.includes(joiningUser.uid)) {
+    else if (exchange.participantIds.includes(joiningUser.id) || exchange.participantIds.includes(joiningUser.uid)) {
         message = joiningUserIsMe ? 'You have already joined this exchange': `User ${joiningUser.username} has already joined this exchange`;
     }
     // exchange full TL
@@ -51,4 +75,42 @@ export function checkUserIsValidToJoin(
         isValid, message
     }
 
+}
+
+export async function removeMyselfFromExchange(FIREBASE_DB, me: User, exchange: Exchange) {
+    let success = false;
+    let message = '';
+    if (me.id === exchange.organizerId) {
+        message = 'Organizers cannot remove themselves from the exchange'
+        return {
+            success,
+            message
+        }
+    }
+    let participantsMeRemoved = [...exchange.participantIds]
+    participantsMeRemoved.splice(participantsMeRemoved.indexOf(me.id), 1)
+    await esUpdateDoc(FIREBASE_DB, 'exchanges', exchange.id, { participantIds: participantsMeRemoved});
+    return {
+        success: true,
+        message: 'You were removed from the exchange'
+    }
+   
+}
+
+export function getPartipantsOfLanguages(users, exchange: Exchange) {
+    if (!users || !exchange) {
+         throw "getPartipantsOfLanguages invalid args"
+    }
+    const participantsTeachingLanguage = users.filter((user) => exchange.participantIds.includes(user.id) && user.teachingLanguageId === exchange.teachingLanguageId)
+    const participantsLearningLanguage = users.filter((user) => exchange.participantIds.includes(user.id) && user.learningLanguageId === exchange.teachingLanguageId)
+    return { participantsTeachingLanguage, participantsLearningLanguage }
+}
+ 
+export async function addParticipantToExchange(FIREBASE_DB, exchange: Exchange, user: User) {
+    if (!user || !exchange || !FIREBASE_DB) {
+        throw "addParticipantToExchange invalid args"
+   }
+    let participantsUserAdded = [...exchange.participantIds, joiningUser.id || joiningUser.uid]
+    const { error, response } = await esUpdateDoc(FIREBASE_DB, 'exchanges', params.exchangeId, { participantIds: participantsUserAdded });
+    return { error, response }
 }
