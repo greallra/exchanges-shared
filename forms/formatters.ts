@@ -115,8 +115,7 @@ export function formatUsersData(users, languages) {
 
 export function getObjectById(id, items){
     if (!id || !items || items.length === 0) {
-        throw "getObjectById";
-        
+        throw "getObjectById"     
     }
     
     return items.find( item => item.id === id) || '';

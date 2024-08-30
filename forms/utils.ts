@@ -49,14 +49,11 @@ export const getFormFields = (form: string, env: string) => {
             }
             if (fieldNew.type === 'datetime' && env === envWeb) {
                 fieldNew.value = new Date()
-                fieldNew.mode = 'datetime'
-                fieldNew.is24Hour = true
             }
             if (fieldNew.type === 'datetime' && env === envRN) {
-                fieldNew.value = { value: null, selectedValue: null }
-            }
-            if (fieldNew.name === 'duration' && env === envRN) {
-                fieldNew.value = { value: null, selectedValue: null }
+                fieldNew.value = new Date()
+                fieldNew.mode = 'datetime'
+                fieldNew.is24Hour = true
             }
             if (fieldNew.name === 'gender' && env === envWeb) {
                 fieldNew.options = [
@@ -65,7 +62,10 @@ export const getFormFields = (form: string, env: string) => {
                 { value: 2, index: 2, matineValue: 'any', label: 'Any Gender'  }]
             }
             if (fieldNew.name === 'gender' && env === envRN) {
-                 fieldNew.options = ['male', 'female', 'Any gender']
+                fieldNew.options = ['male', 'female', 'Any gender']
+            }
+            if (fieldNew.name === 'duration' && env === envRN) {
+                fieldNew.value = { value: null, selectedValue: null }
             }
         } 
         
