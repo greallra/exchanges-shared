@@ -1,6 +1,6 @@
 import { format, formatDistance, formatRelative, subDays, formatISO } from 'date-fns'
 
-import { ExchangeForm, ExchangeServer, FormFields, UserForm, Language, User } from '../types'
+import { ExchangeForm, ExchangeServerFormat, FormFields, UserForm, Language, User, ExchangeFormatted } from '../types'
 import { isFirebaseId } from '../utils'
 
 function extractDeepValueIfNecessary(value: any, objectPropertyToDig: string, shouldBeType: string) {
@@ -10,8 +10,25 @@ function extractDeepValueIfNecessary(value: any, objectPropertyToDig: string, sh
     return value[objectPropertyToDig];
 }
 
+export function formatExchange (exchange, languages, users) {
+    if (typeof exchange.time === 'object') {
+        exchange.timeUnix = format(formatISO(exchange.time.seconds * 1000), 'Pp')
+        exchange.timeHour = format(formatISO(exchange.time.seconds * 1000), 'p')
+    }
+    if (typeof exchange.name !== 'string') {
+        exchange.name = "not string"
+    }
+    
+    exchange.teachingLanguageUnfolded = getObjectById(exchange.teachingLanguageId, languages)
+    exchange.learningLanguageUnfolded = getObjectById(exchange.learningLanguageId, languages)
+    exchange.organizerUnfolded = getObjectById(exchange.organizerId, users)
+    
+    return {
+        ...exchange
+    }
+}
 
-export function formatPostDataExchange (data: ExchangeForm) {
+export function formatPostDataExchange (data) {
     let formattedData = {
         ...data,
         learningLanguageId:  extractDeepValueIfNecessary(data.learningLanguage, 'id' , 'string'),
@@ -35,7 +52,7 @@ export function formatPostDataUser (data: object) {
     return formattedData;
 }
 
-export function updateFormFieldsWithSavedData(formFields: Array, savedData: object) {
+export function updateFormFieldsWithSavedData(formFields, savedData) {
     return formFields.map((field) => {
         // if data given to alter field contains field property and has a value, assign it to the field value
         const value = savedData[field.property];
@@ -46,7 +63,7 @@ export function updateFormFieldsWithSavedData(formFields: Array, savedData: obje
     })
 }
 
-export function updateFormFieldsWithDefaultData(formFields: FormFields, defaultData: object) {
+export function updateFormFieldsWithDefaultData(formFields, defaultData) {
     return formFields.map((field) => {
         // if data given to alter field contains field property and has a value, assign it to the field value
         const value = defaultData[field.property];
@@ -57,7 +74,7 @@ export function updateFormFieldsWithDefaultData(formFields: FormFields, defaultD
     })
 }
 
-export function formatLanguages (languages: Array<Language>) {
+export function formatLanguages (languages) {
     return languages.map((lang) => {
         return {
             ...lang,
@@ -78,7 +95,7 @@ export function appendAuthDataToUser (user) {
     }
 }
 
-export function formatUserData(user: User, languages: Array<Language>) {
+export function formatUserData(user, languages) {
     let result = {...user}
     if (user.dob) {
         result.dob = new Date(formatISO(user.dob.seconds * 1000))
@@ -91,31 +108,15 @@ export function formatUserData(user: User, languages: Array<Language>) {
     }
 }
 
-export function formatUsersData(users: Array<User>, languages: Array<Language>) {
+export function formatUsersData(users, languages) {
     return users.map((user) => formatUserData(user, languages));
  }
 
-export function formatExchange (exchange: ExchangeServer, languages: Array<Language>, users: Array<User>) {
-    if (typeof exchange.time === 'object') {
-        exchange.timeUnix = format(formatISO(exchange.time.seconds * 1000), 'Pp')
-        exchange.timeHour = format(formatISO(exchange.time.seconds * 1000), 'p')
-    }
-    if (typeof exchange.name !== 'string') {
-        exchange.name = "not string"
-    }
-   
-    exchange.teachingLanguageUnfolded = getObjectById(exchange.teachingLanguageId, languages)
-    exchange.learningLanguageUnfolded = getObjectById(exchange.learningLanguageId, languages)
-    exchange.organizerUnfolded = getObjectById(exchange.organizerId, users)
-    
-    return {
-        ...exchange
-    }
-}
 
-export function getObjectById(id: string, items: Array){
-    if (!id|| !items || items.length === 0) {
-        return ''
+export function getObjectById(id, items){
+    if (!id || !items || items.length === 0) {
+        throw "getObjectById";
+        
     }
     
     return items.find( item => item.id === id) || '';

@@ -1,8 +1,17 @@
-import { Exchange, User, ParticipantsTeachingLanguage, ParticipantsLearningLanguage } from '../types'
+import { ExchangeFormatted, User, Participants } from '../types'
 import { esUpdateDoc } from '../api/calls';
 
-export function checkUserHasJoined(user: User, exchange: Exchange){
-    if (!user || !exchange) {
+export function userLanguagesMatchesExchange(exchange: ExchangeFormatted, user: User) {
+    const learningLanguageValues = Object.values(exchange.learningLanguageUnfolded);
+    const teachingLanguageValues = Object.values(exchange.teachingLanguageUnfolded);
+    const combinedValues = [...learningLanguageValues, ...teachingLanguageValues];
+    combinedValues.includes(user.learningLanguageId);
+    combinedValues.includes(user.teachingLanguageId);
+    return combinedValues.includes(user.learningLanguageId) && combinedValues.includes(user.teachingLanguageId)
+}
+
+export function checkUserHasJoined(user: User, exchange: ExchangeFormatted){
+    if (!user || !user.id || !exchange) {
         throw "checkUserHasJoined invalid args"
     }
     
@@ -12,14 +21,22 @@ export function checkUserHasJoined(user: User, exchange: Exchange){
     }
     return hasJoined;
 }
-
- 
+// NOT VALID +  disabled action
+// 1. Incorrect target languages - msg = doesnt match ur language
+// 2. Already Joined + is orangiser
+// 5. Exchange full for users TL
+// NOT VALID + enabled action
+// 3. Already Joined + is not orangiser (remove me action)
+// 4.
+// VALID
+// Exchange not full for users TL + is my target languages
+// Joined + is not oraniser (remove me action)
 export function checkUserIsValidToJoin(
-        exchange: Exchange,
-        participantsTeachingLanguage,
-        participantsLearningLanguage,
-        userPerforming, 
-        userAdded
+    exchange: ExchangeFormatted,
+    participantsTeachingLanguage,
+    participantsLearningLanguage,
+    userPerforming, 
+    userAdded
     ) {
     let isValid = false;
     let message = '';
@@ -34,27 +51,27 @@ export function checkUserIsValidToJoin(
             message
         }
     }
-
     if (!userAdded) {
         joiningUser = userPerforming
         joiningUserIsMe = true
     } else {
         joiningUser = userAdded 
     }
-    const learningLanguageValues = Object.values(exchange.learningLanguageUnfolded);
-    const teachingLanguageValues = Object.values(exchange.teachingLanguageUnfolded);
-    const combinedValues = [...learningLanguageValues, ...teachingLanguageValues];
-    combinedValues.includes(joiningUser.learningLanguageId);
-    combinedValues.includes(joiningUser.teachingLanguageId);
-    
+    console.log('participantsTeachingLanguage', participantsTeachingLanguage);
+    console.log('participantsTeachingLanguage', participantsTeachingLanguage);
+   
     // Not the right target languages
-    if (!combinedValues.includes(joiningUser.learningLanguageId) || !combinedValues.includes(joiningUser.teachingLanguageId)) {
+    if (!userLanguagesMatchesExchange(exchange, joiningUser)) {
         message = 'Incorrect target languages';
     }
     // Already Joined
-    else if (exchange.participantIds.includes(joiningUser.id) || exchange.participantIds.includes(joiningUser.uid)) {
+    else if (checkUserHasJoined(joiningUser, exchange)) {
         message = joiningUserIsMe ? 'You have already joined this exchange': `User ${joiningUser.username} has already joined this exchange`;
     }
+    // // Is organizer
+    // else if (isExchangeOrganizer(exchange, joiningUser)) {
+    //     message = 'Organisers cannot abandon the exchange'
+    // }
     // exchange full TL
     else if (participantsTeachingLanguage.length >= exchange.capacity / 2 && participantsTeachingLanguage[0].teachingLanguageId === joiningUser.teachingLanguageId ) {
         message = `The Exchange is full for ${exchange.teachingLanguageUnfolded.name} speakers`;
@@ -74,10 +91,9 @@ export function checkUserIsValidToJoin(
     return {
         isValid, message
     }
-
 }
 
-export async function removeMyselfFromExchange(FIREBASE_DB, me: User, exchange: Exchange) {
+export async function removeMyselfFromExchange(FIREBASE_DB, me, exchange) {
     let success = false;
     let message = '';
     if (me.id === exchange.organizerId) {
@@ -97,7 +113,7 @@ export async function removeMyselfFromExchange(FIREBASE_DB, me: User, exchange: 
    
 }
 
-export function getPartipantsOfLanguages(users, exchange: Exchange) {
+export function getPartipantsOfLanguages(users, exchange) {
     if (!users || !exchange) {
          throw "getPartipantsOfLanguages invalid args"
     }
@@ -106,11 +122,19 @@ export function getPartipantsOfLanguages(users, exchange: Exchange) {
     return { participantsTeachingLanguage, participantsLearningLanguage }
 }
  
-export async function addParticipantToExchange(FIREBASE_DB, exchange: Exchange, user: User) {
+export async function addParticipantToExchange(FIREBASE_DB, exchange, user) {
     if (!user || !exchange || !FIREBASE_DB) {
         throw "addParticipantToExchange invalid args"
    }
-    let participantsUserAdded = [...exchange.participantIds, joiningUser.id || joiningUser.uid]
-    const { error, response } = await esUpdateDoc(FIREBASE_DB, 'exchanges', params.exchangeId, { participantIds: participantsUserAdded });
+    let participantsUserAdded = [...exchange.participantIds, user.id || user.uid]
+    const { error, response } = await esUpdateDoc(FIREBASE_DB, 'exchanges', exchange.id, { participantIds: participantsUserAdded });
     return { error, response }
 }
+
+export function isExchangeOrganizer(exchange, user) {
+    if (!user || !exchange) {
+        throw "isExchangeOrganizer invalid args"
+   }
+   return exchange.participantIds.includes(user.id)
+}
+

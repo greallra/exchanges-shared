@@ -6,45 +6,77 @@ export interface Language {
     name: string,
 }
 
-export interface ExchangeServer {
+export interface ExchangeServerFormat {
     name: string,
     location: Object,
     capacity: String,
-    time: Date,
+    time: Object,
     duration: string,
     gender: Number,
     age_range: Array<Number>,
     organizerId: string,
     participantIds: Array<String>,
     learningLanguageId: string,
-    teachingLanguageId: string
+    teachingLanguageId: string,
 }
+/*
+ExchangeFormatted: add fields
+timeUnix
+timeHour
+teachingLanguageUnfolded
+learningLanguageUnfolded
+organizerUnfolded */
 
 export interface ExchangeForm {
     name: string,
+    // location: Object,
+    // capacity: String,
+    // time: Object,
+    // duration: string,
+    // gender: Number,
+    // age_range: Array<Number>,
+    // organizerId: string,
+    // participantIds: Array<String>,
+    // teachingLanguage: Language,
+    // learningLanguage: Language
+}
+/*
+ExchangeFormatted: add fields
+timeUnix
+timeHour
+teachingLanguageUnfolded
+learningLanguageUnfolded
+organizerUnfolded */
+export type ExchangeFormatted = {
+    name: string,
     location: Object,
     capacity: String,
-    time: Date,
+    time: Object,
     duration: string,
     gender: Number,
     age_range: Array<Number>,
     organizerId: string,
+    organizerUnfolded: User,
     participantIds: Array<String>,
-    teachingLanguage: Language,
-    learningLanguage: Language
+    teachingLanguageUnfolded: Language,
+    learningLanguageUnfolded: Language,
+    learningLanguageId: string,
+    teachingLanguageId: string, 
+    timeUnix: string,
+    timeHour: string
 }
-
 
 export interface User {
     username: string,
     firstname: string,
     lastname: string,
     email: string,
-    dob: Date,
+    dob: Object,
     gender: number,
-    teachingLanguageId: Language,
-    learningLanguageId: Language
+    teachingLanguageId: string,
+    learningLanguageId: string
 }
+
 export interface UserForm {
     username: string,
     firstname: string,

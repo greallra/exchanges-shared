@@ -42,7 +42,7 @@ describe("getUserFormFields", () => {
     const genderItem = testUserFormRN[6];
     const teachingLanguageItem = testUserFormRN[7];
     const item = testUserFormRN[7];
-    console.log('genderItem', genderItem);
+    // console.log('genderItem', genderItem);
     // new Date('01-01-2004')   field.maxDate = new Date('01-01-2004')
     // expect(getFormFields(formNames[0], rnEnv)).toEqual(forms[formNames[0]]);
     expect(dobItem).toHaveProperty('maxDate', new Date('01-01-2004'))
