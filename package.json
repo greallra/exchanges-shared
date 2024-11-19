@@ -1,6 +1,6 @@
 {
   "name": "exchanges-shared",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "shared stuff for React Native and React Web apps",
   "main": "index.ts",
   "scripts": {
