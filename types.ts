@@ -75,6 +75,7 @@ export interface User {
   gender: number;
   teachingLanguageId: string;
   learningLanguageId: string;
+  avatarUrl: string;
 }
 
 export interface UserForm {

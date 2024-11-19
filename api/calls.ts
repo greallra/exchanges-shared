@@ -107,7 +107,6 @@ export async function esSetDoc(
     try {
       const ref = doc(FIREBASE_DB, collectionName, docId);
       const response = await setDoc(ref, data);
-      console.log("response", response);
 
       resolve({
         error: false,
@@ -161,13 +160,11 @@ export async function esDeleteDocs(
           idsOfDocsToDelete.push(doc.id);
         }
       });
-      console.log("idsOfDocsToDelete", idsOfDocsToDelete);
 
       const promises = idsOfDocsToDelete.map((id) =>
         deleteDoc(collectionName, id)
       );
       const promisesResult = await Promise.all(promises);
-      console.log("promisesResult", promisesResult);
       resolve({
         error: false,
         response: promisesResult,
